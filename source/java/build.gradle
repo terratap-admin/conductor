@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'io.transmotrifier'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile group: 'io.transmogrifier', name: 'core', version: '1.0-SNAPSHOT'
+    compile group: 'com.udojava', name: 'EvalEx', version: '2.1'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.4.0'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+}
