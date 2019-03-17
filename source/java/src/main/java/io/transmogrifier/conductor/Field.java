@@ -2,8 +2,8 @@ package io.transmogrifier.conductor;
 
 public class Field<T>
 {
-    protected final VariableWrapper<T> variableWrapper;
-    private final   String             name;
+    protected final Value<T> value;
+    private final   String   name;
 
     Field(final String nm,
           final T initialValue)
@@ -14,7 +14,7 @@ public class Field<T>
         }
 
         name = nm;
-        variableWrapper = new VariableWrapper<>(initialValue);
+        value = new Value<>(initialValue);
     }
 
     public String getName()
@@ -24,10 +24,15 @@ public class Field<T>
 
     public T getValue()
     {
-        final T value;
+        final T val;
 
-        value = variableWrapper.getValue();
+        val = value.getValue();
 
-        return value;
+        return val;
+    }
+
+    public String toString()
+    {
+        return name + " = " + value;
     }
 }

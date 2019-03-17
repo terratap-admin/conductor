@@ -1,10 +1,10 @@
 package io.transmogrifier.conductor;
 
-public class VariableWrapper<T>
+public class Value<T>
 {
     private T value;
 
-    public VariableWrapper(final T initialValue)
+    public Value(final T initialValue)
     {
         value = initialValue;
     }
@@ -17,5 +17,10 @@ public class VariableWrapper<T>
     public void setValue(final T val)
     {
         value = val;
+    }
+
+    public String toString()
+    {
+        return value.toString();
     }
 }

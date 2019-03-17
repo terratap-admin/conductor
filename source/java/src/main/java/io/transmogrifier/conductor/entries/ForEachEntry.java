@@ -1,52 +1,70 @@
 package io.transmogrifier.conductor.entries;
 
-import io.transmogrifier.Filter;
 import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
 import io.transmogrifier.conductor.Field;
+import io.transmogrifier.conductor.Pipeline;
+import io.transmogrifier.conductor.State;
 import io.transmogrifier.conductor.Variable;
 
 import java.util.List;
 
-public class ForEachEntry<I, E, O>
-        extends PipelineEntry<I, E, O>
+public class ForEachEntry<I, E>
+        extends Entry<I, E, Void>
 {
-    private final Filter<I, E, O> processor;
-    private final List<Field<I>>  inputVars;
-    private final Field<E>        extraVar;
-    private final Variable<O>     outputVar;
+    private final Pipeline       pipeline;
+    private final Field<List<I>> inputField;
+    private final Field<E>       extraField;
+    private final Variable<I>    itemField;
 
-    public ForEachEntry(final Filter<I, E, O> proc,
-                        final List<Field<I>> input,
-                        final Field<E> extra,
-                        final Variable<O> output)
+    public ForEachEntry(final State stat,
+                        final Pipeline pipe,
+                        final Variable<I> item,
+                        final Field<List<I>> input)
     {
-        processor = proc;
-        inputVars = input;
-        extraVar = extra;
-        outputVar = output;
+        this(stat,
+             pipe,
+             item,
+             input,
+             null);
+    }
+
+    public ForEachEntry(final State stat,
+                        final Pipeline pipe,
+                        final Variable<I> item,
+                        final Field<List<I>> input,
+                        final Field<E> extra)
+    {
+        super(stat);
+
+        pipeline = pipe;
+        inputField = input;
+        extraField = extra;
+        itemField = item;
     }
 
     @Override
     public Void perform(final Transmogrifier transmogrifier,
-                        final Void inore)
+                        final Void ignore)
             throws
             FilterException
     {
-        final E extra;
+        final List<I> input;
 
-        extra = getValue(extraVar);
+        input = getValue(inputField);
 
-        for(final Field<I> var : inputVars)
+        for(final I value : input)
         {
-            final I input;
-
-            input = getValue(var);
-            transmogrifier.transform(input,
-                                     extra,
-                                     processor);
+            itemField.setValue(value);
+            execute(pipeline);
         }
 
         return null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ForEachEntry: " + pipeline;
     }
 }

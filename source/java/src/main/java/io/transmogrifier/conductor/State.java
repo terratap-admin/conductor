@@ -1,102 +1,50 @@
 package io.transmogrifier.conductor;
 
-import java.util.concurrent.ConcurrentHashMap;
+import io.transmogrifier.Transmogrifier;
 
 public class State
 {
-    private final ConcurrentHashMap<String, Field<?>> constants;
-    private final ConcurrentHashMap<String, Field<?>> variables;
-    private final ConcurrentHashMap<String, Field<?>> fields;
+    private final Transmogrifier transmogrifier;
+    private final Conductor      conductor;
+    private final Scope          scope;
 
+    public State(final Transmogrifier t,
+                 final Conductor c)
     {
-        constants = new ConcurrentHashMap<>();
-        variables = new ConcurrentHashMap<>();
-        fields = new ConcurrentHashMap<>();
+        this(t,
+             c,
+             new Scope());
     }
 
-    public <T> void addConstant(final String name,
-                                final T initalValue)
+    public State(final State state,
+                 final Scope scp)
     {
-        final Constant<T> constant;
-
-        constant = new Constant<>(name,
-                                  initalValue);
-        addField(constant);
-        addField(constant,
-                 constants);
+        this(state.getTransmogrifier(),
+             state.getConductor(),
+             scp);
     }
 
-    public <T> void addVariable(final String name,
-                                final T initalValue)
+    public State(final Transmogrifier t,
+                 final Conductor c,
+                 final Scope scp)
     {
-        final Variable<T> variable;
-
-        variable = new Variable<>(name,
-                                  initalValue);
-        addField(variable);
-        addField(variable,
-                 variables);
+        transmogrifier = t;
+        conductor = c;
+        scope = scp;
     }
 
-    public <T> Constant<T> getConstant(final String name)
+    public Transmogrifier getTransmogrifier()
     {
-        final Constant<T> constant;
-
-        constant = (Constant<T>)getField(name,
-                                         constants);
-
-        return (constant);
+        return transmogrifier;
     }
 
-    public <T> Variable<T> getVariable(final String name)
+    public Conductor getConductor()
     {
-        final Variable<T> variable;
-
-        variable = (Variable<T>)getField(name,
-                                         variables);
-
-        return (variable);
+        return conductor;
     }
 
-    public <T> Field<T> getField(final String name)
+    public Scope getScope()
     {
-        final Field<T> field;
-
-        field = (Field<T>)getField(name,
-                                   fields);
-
-        return (field);
-    }
-
-    private <T> Field<T> getField(final String name,
-                                  final ConcurrentHashMap<String, Field<?>> fieldMap)
-    {
-        final Field<T> field;
-
-        field = (Field<T>)fieldMap.get(name);
-
-        return (field);
-    }
-
-    private <T> void addField(final Field<T> field)
-    {
-        addField(field,
-                 fields);
-    }
-
-    private void addField(final Field<?> field,
-                          final ConcurrentHashMap<String, Field<?>> fieldMap)
-    {
-        final Field<?> oldValue;
-        final String   name;
-
-        name = field.getName();
-        oldValue = fieldMap.putIfAbsent(name,
-                                        field);
-
-        if(oldValue != null)
-        {
-            throw new RuntimeException("duplicate constant: " + name);
-        }
+        return scope;
     }
 }

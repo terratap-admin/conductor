@@ -3,8 +3,9 @@ package io.transmogrifier.conductor;
 import io.transmogrifier.Filter;
 import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
+import io.transmogrifier.conductor.entries.Entry;
 
-public class Conductor
+public class PipelineFilter
         implements Filter<Pipeline, State, Void>
 {
     @Override
@@ -13,24 +14,25 @@ public class Conductor
             throws
             FilterException
     {
-        final PipelineFilter filter;
         final Transmogrifier transmogrifier;
 
         if(pipeline == null)
         {
-            throw new RuntimeException("pipeline cannot be null");
+            throw new IllegalArgumentException("pipeline cannot be null");
         }
 
         if(state == null)
         {
-            throw new RuntimeException("scope cannot be null");
+            throw new IllegalArgumentException("scope cannot be null");
         }
 
-        filter = new PipelineFilter();
         transmogrifier = state.getTransmogrifier();
-        transmogrifier.transform(pipeline,
-                                 state,
-                                 filter);
+
+        for(final Entry<?, ?, ?> entry : pipeline)
+        {
+            transmogrifier.transform(transmogrifier,
+                                     entry);
+        }
 
         return null;
     }

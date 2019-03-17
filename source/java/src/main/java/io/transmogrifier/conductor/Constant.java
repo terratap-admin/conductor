@@ -9,4 +9,9 @@ public class Constant<T>
         super(nm,
               initialValue);
     }
+
+    public String toString()
+    {
+        return "const " + super.toString();
+    }
 }

@@ -1,25 +1,20 @@
 package io.transmogrifier.conductor.entries;
 
-import io.transmogrifier.Filter;
 import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
-import io.transmogrifier.conductor.Field;
+import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
 
 public class WhileEntry<I, E>
         extends LoopingEntry<I, E>
 {
-    public WhileEntry(final Filter<I, E, Void> proc,
-                      final Field<I> input,
-                      final Field<E> extra,
+    public WhileEntry(final State stat,
                       final String cond,
-                      final State s)
+                      final Pipeline pipe)
     {
-        super(cond,
-              proc,
-              input,
-              extra,
-              s);
+        super(stat,
+              pipe,
+              cond);
     }
 
     @Override
@@ -30,9 +25,15 @@ public class WhileEntry<I, E>
     {
         while(getResult(transmogrifier))
         {
-            execute(transmogrifier);
+            execute(pipeline);
         }
 
         return null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "WhileEntry: " + super.toString();
     }
 }

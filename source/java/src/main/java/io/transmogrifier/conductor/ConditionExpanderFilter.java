@@ -6,8 +6,8 @@ import io.transmogrifier.FilterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ConditionExpanderProcessor
-        implements Filter<String, State, String>
+public class ConditionExpanderFilter
+        implements Filter<String, Scope, String>
 {
     private static final Pattern FIELD_PATTERN;
 
@@ -18,7 +18,7 @@ public class ConditionExpanderProcessor
 
     @Override
     public String perform(final String expression,
-                          final State state)
+                          final Scope state)
             throws
             FilterException
     {

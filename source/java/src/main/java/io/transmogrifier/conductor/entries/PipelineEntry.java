@@ -1,59 +1,43 @@
 package io.transmogrifier.conductor.entries;
 
-import io.transmogrifier.Filter;
 import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
-import io.transmogrifier.conductor.Field;
-import io.transmogrifier.conductor.Variable;
+import io.transmogrifier.conductor.Pipeline;
+import io.transmogrifier.conductor.State;
 
-public abstract class PipelineEntry<I, E, O>
-        implements Filter<Transmogrifier, Void, Void>
+public class PipelineEntry
+        extends Entry<Pipeline, State, Void>
 {
-    protected <T> T getValue(final Field<T> field)
+    private final Pipeline pipeline;
+
+    public PipelineEntry(final State stat,
+                         final Pipeline pipe)
     {
-        final T value;
+        super(stat);
 
-        if(field == null)
-        {
-            value = null;
-        }
-        else
-        {
-            value = field.getValue();
-        }
-
-        return value;
+        pipeline = pipe;
     }
 
-    protected void setOutputValue(final O value,
-                                  final Variable<O> var)
-    {
-        if(var != null)
-        {
-            var.setValue(value);
-        }
-    }
-
-    protected O execute(final Transmogrifier transmogrifier,
-                        final Filter<I, E, O> filter,
-                        final Field<I> inputField,
-                        final Field<E> extraField,
-                        final Variable<O> outputVar)
+    @Override
+    public Void perform(final Transmogrifier transmogrifier,
+                        final Void ignore)
             throws
             FilterException
     {
-        final I input;
-        final E extra;
-        final O output;
+        for(final Entry<?, ?, ?> entry : pipeline)
+        {
+            transmogrifier.transform(transmogrifier,
+                                     entry);
+        }
 
-        input = getValue(inputField);
-        extra = getValue(extraField);
-        output = transmogrifier.transform(input,
-                                          extra,
-                                          filter);
-        setOutputValue(output,
-                       outputVar);
+        return null;
+    }
 
-        return output;
+    @Override
+    public String toString()
+    {
+        return "Pipeline";
     }
 }
+
+

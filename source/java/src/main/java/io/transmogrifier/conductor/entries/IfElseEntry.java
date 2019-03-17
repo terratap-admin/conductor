@@ -1,46 +1,36 @@
 package io.transmogrifier.conductor.entries;
 
-import io.transmogrifier.Filter;
 import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
-import io.transmogrifier.conductor.Field;
+import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
-import io.transmogrifier.conductor.Variable;
 
 public class IfElseEntry<I, E, O>
         extends ConditionalEntry<I, E, O>
 {
-    private final Filter<I, E, O> ifProcessor;
-    private final Field<I>        ifInputVar;
-    private final Field<E>        ifExtraVar;
-    private final Variable<O>     ifOutputVar;
-    private final Filter<I, E, O> elseProcessor;
-    private final Field<I>        elseInputVar;
-    private final Field<E>        elseExtraVar;
-    private final Variable<O>     elseOutputVar;
+    private final Pipeline ifPipeline;
+    private final Pipeline elsePipeline;
 
-    public IfElseEntry(final String cond,
-                       final Filter<I, E, O> ifProc,
-                       final Field<I> ifInput,
-                       final Field<E> ifExtra,
-                       final Variable<O> ifOutput,
-                       final Filter<I, E, O> elseProc,
-                       final Field<I> elseInput,
-                       final Field<E> elseExtra,
-                       final Variable<O> elseOutput,
-                       final State s)
+    public IfElseEntry(final State stat,
+                       final Pipeline ifPipe,
+                       final String cond)
     {
-        super(cond,
-              s);
+        this(stat,
+             ifPipe,
+             null,
+             cond);
+    }
 
-        ifProcessor = ifProc;
-        ifInputVar = ifInput;
-        ifExtraVar = ifExtra;
-        ifOutputVar = ifOutput;
-        elseProcessor = elseProc;
-        elseInputVar = elseInput;
-        elseExtraVar = elseExtra;
-        elseOutputVar = elseOutput;
+    public IfElseEntry(final State stat,
+                       final Pipeline ifPipe,
+                       final Pipeline elsePipe,
+                       final String cond)
+    {
+        super(stat,
+              cond);
+
+        ifPipeline = ifPipe;
+        elsePipeline = elsePipe;
     }
 
     @Override
@@ -49,35 +39,31 @@ public class IfElseEntry<I, E, O>
             throws
             FilterException
     {
-        final boolean         result;
-        final Filter<I, E, O> proc;
-        final Field<I>        inputField;
-        final Field<E>        extraField;
-        final Variable<O>     outputVar;
+        final boolean  result;
+        final Pipeline pipeline;
 
         result = getResult(transmogrifier);
 
         if(result)
         {
-            proc = ifProcessor;
-            inputField = ifInputVar;
-            extraField = ifExtraVar;
-            outputVar = ifOutputVar;
+            pipeline = ifPipeline;
         }
         else
         {
-            proc = elseProcessor;
-            inputField = elseInputVar;
-            extraField = elseExtraVar;
-            outputVar = elseOutputVar;
+            pipeline = elsePipeline;
         }
 
-        execute(transmogrifier,
-                proc,
-                inputField,
-                extraField,
-                outputVar);
+        if(pipeline != null)
+        {
+            execute(pipeline);
+        }
 
         return null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ForEachEntry ? " + ifPipeline + " : " + elsePipeline;
     }
 }

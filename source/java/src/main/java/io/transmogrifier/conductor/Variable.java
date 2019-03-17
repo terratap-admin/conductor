@@ -18,6 +18,11 @@ public class Variable<T>
 
     public void setValue(final T value)
     {
-        variableWrapper.setValue(value);
+        this.value.setValue(value);
+    }
+
+    public String toString()
+    {
+        return "var " + super.toString();
     }
 }

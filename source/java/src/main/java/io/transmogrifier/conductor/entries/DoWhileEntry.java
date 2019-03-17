@@ -1,25 +1,20 @@
 package io.transmogrifier.conductor.entries;
 
-import io.transmogrifier.Filter;
 import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
-import io.transmogrifier.conductor.Field;
+import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
 
 public class DoWhileEntry<I, E>
         extends LoopingEntry<I, E>
 {
-    public DoWhileEntry(final Filter<I, E, Void> proc,
-                        final Field<I> input,
-                        final Field<E> extra,
-                        final String cond,
-                        final State s)
+    public DoWhileEntry(final State stat,
+                        final Pipeline pipe,
+                        final String cond)
     {
-        super(cond,
-              proc,
-              input,
-              extra,
-              s);
+        super(stat,
+              pipe,
+              cond);
     }
 
     @Override
@@ -30,9 +25,15 @@ public class DoWhileEntry<I, E>
     {
         do
         {
-            execute(transmogrifier);
+            execute(pipeline);
         } while(getResult(transmogrifier));
 
         return null;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "DoWhileEntry: " + super.toString();
     }
 }

@@ -5,7 +5,7 @@ import io.transmogrifier.UnaryFilter;
 
 import java.math.BigDecimal;
 
-public class ConditionProcessor
+public class ConditionFilter
         implements UnaryFilter<String, Boolean>
 {
     @Override
