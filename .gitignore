@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/java,xcode,swift,emacs,linux,macos,windows,eclipse,netbeans,webstorm,intellij,objective-c,intellij+all,intellij+iml,webstorm+all,webstorm+iml,visualstudio,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=java,xcode,swift,emacs,linux,macos,windows,eclipse,netbeans,webstorm,intellij,objective-c,intellij+all,intellij+iml,webstorm+all,webstorm+iml,visualstudio,visualstudiocode
+# Created by https://www.gitignore.io/api/java,maven,xcode,macos,linux,emacs,swift,eclipse,windows,netbeans,webstorm,intellij,objective-c,intellij+iml,webstorm+iml,intellij+all,webstorm+all,visualstudio,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=java,maven,xcode,macos,linux,emacs,swift,eclipse,windows,netbeans,webstorm,intellij,objective-c,intellij+iml,webstorm+iml,intellij+all,webstorm+all,visualstudio,visualstudiocode
 
 ### Eclipse ###
 
@@ -255,6 +255,9 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
+# Sonarlint plugin
+ .idea/sonarlint
+
 ### Intellij+iml ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -366,6 +369,18 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
 ### NetBeans ###
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
@@ -406,25 +421,20 @@ xcuserdata/
 *.dSYM
 
 # CocoaPods
-#
 # We recommend against adding the Pods directory to your .gitignore. However
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
 # Pods/
-#
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
 
 # Carthage
-#
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
 
 Carthage/Build
 
 # fastlane
-#
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
 # screenshots whenever they are needed.
 # For more information about the recommended setup visit:
@@ -436,7 +446,6 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 # Code Injection
-#
 # After new code Injection tools there's a generated folder /iOSInjectionProject
 # https://github.com/johnno1962/injectionforxcode
 
@@ -446,23 +455,17 @@ iOSInjectionProject/
 
 ### Swift ###
 # Xcode
-#
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-## Build generated
 
-## Various settings
 
-## Other
 
-## Obj-C/Swift specific
 
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
 
 # Swift Package Manager
-#
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
 # Packages/
 # Package.pins
@@ -470,24 +473,19 @@ playground.xcworkspace
 .build/
 
 # CocoaPods
-#
 # We recommend against adding the Pods directory to your .gitignore. However
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
 # Pods/
-#
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
 
 # Carthage
-#
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
 
 
 # fastlane
-#
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
 # screenshots whenever they are needed.
 # For more information about the recommended setup visit:
@@ -495,7 +493,6 @@ playground.xcworkspace
 
 
 # Code Injection
-#
 # After new code Injection tools there's a generated folder /iOSInjectionProject
 # https://github.com/johnno1962/injectionforxcode
 
@@ -609,6 +606,8 @@ playground.xcworkspace
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
 
 
+# Sonarlint plugin
+
 ### WebStorm+iml ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -680,7 +679,6 @@ $RECYCLE.BIN/
 
 ### Xcode ###
 # Xcode
-#
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
@@ -954,6 +952,7 @@ ServiceFabricBackup/
 *.bim.layout
 *.bim_*.settings
 *.rptproj.rsuser
+*- Backup*.rdl
 
 # Microsoft Fakes
 FakesAssemblies/
@@ -1036,4 +1035,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-# End of https://www.gitignore.io/api/java,xcode,swift,emacs,linux,macos,windows,eclipse,netbeans,webstorm,intellij,objective-c,intellij+all,intellij+iml,webstorm+all,webstorm+iml,visualstudio,visualstudiocode
+# End of https://www.gitignore.io/api/java,maven,xcode,macos,linux,emacs,swift,eclipse,windows,netbeans,webstorm,intellij,objective-c,intellij+iml,webstorm+iml,intellij+all,webstorm+all,visualstudio,visualstudiocode
