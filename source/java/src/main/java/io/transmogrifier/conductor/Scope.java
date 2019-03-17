@@ -1,14 +1,31 @@
 package io.transmogrifier.conductor;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ *
+ */
 public class Scope
 {
-    private final Scope                               outer;
+    /**
+     *
+     */
+    private final Scope outer;
+
+    /**
+     *
+     */
     private final ConcurrentHashMap<String, Field<?>> constants;
+
+    /**
+     *
+     */
     private final ConcurrentHashMap<String, Field<?>> variables;
+
+    /**
+     *
+     */
     private final ConcurrentHashMap<String, Field<?>> fields;
 
     {
@@ -17,16 +34,28 @@ public class Scope
         fields = new ConcurrentHashMap<>();
     }
 
+    /**
+     *
+     */
     public Scope()
     {
         this(null);
     }
 
+    /**
+     * @param o
+     */
     public Scope(final Scope o)
     {
         outer = o;
     }
 
+    /**
+     * @param name
+     * @param initalValue
+     * @param <T>
+     * @return
+     */
     public <T> Constant<T> addConstant(final String name,
                                        final T initalValue)
     {
@@ -39,6 +68,10 @@ public class Scope
         return constant;
     }
 
+    /**
+     * @param constant
+     * @param <T>
+     */
     public <T> void addConstant(final Constant<T> constant)
     {
         addField(constant);
@@ -46,6 +79,11 @@ public class Scope
                  constants);
     }
 
+    /**
+     * @param name
+     * @param <T>
+     * @return
+     */
     public <T> Variable<T> addVariable(final String name)
     {
         final Variable<T> variable;
@@ -56,6 +94,12 @@ public class Scope
         return variable;
     }
 
+    /**
+     * @param name
+     * @param initalValue
+     * @param <T>
+     * @return
+     */
     public <T> Variable<T> addVariable(final String name,
                                        final T initalValue)
     {
@@ -68,6 +112,10 @@ public class Scope
         return variable;
     }
 
+    /**
+     * @param variable
+     * @param <T>
+     */
     public <T> void addVariable(final Variable<T> variable)
     {
         addField(variable);
@@ -75,6 +123,11 @@ public class Scope
                  variables);
     }
 
+    /**
+     * @param name
+     * @param <T>
+     * @return
+     */
     public <T> Constant<T> getConstant(final String name)
     {
         final Constant<T> constant;
@@ -85,6 +138,11 @@ public class Scope
         return (constant);
     }
 
+    /**
+     * @param name
+     * @param <T>
+     * @return
+     */
     public <T> Variable<T> getVariable(final String name)
     {
         final Variable<T> variable;
@@ -95,10 +153,15 @@ public class Scope
         return (variable);
     }
 
+    /**
+     * @param name
+     * @param <T>
+     * @return
+     */
     public <T> T getValue(final String name)
     {
         final Field<T> field;
-        final T value;
+        final T        value;
 
         field = getField(name);
 
@@ -111,6 +174,11 @@ public class Scope
         return value;
     }
 
+    /**
+     * @param name
+     * @param <T>
+     * @return
+     */
     public <T> Field<T> getField(final String name)
     {
         final Field<T> field;
@@ -121,6 +189,12 @@ public class Scope
         return (field);
     }
 
+    /**
+     * @param name
+     * @param fieldMap
+     * @param <T>
+     * @return
+     */
     private <T> Field<T> getField(final String name,
                                   final ConcurrentHashMap<String, Field<?>> fieldMap)
     {
@@ -136,12 +210,20 @@ public class Scope
         return (field);
     }
 
+    /**
+     * @param field
+     * @param <T>
+     */
     private <T> void addField(final Field<T> field)
     {
         addField(field,
                  fields);
     }
 
+    /**
+     * @param field
+     * @param fieldMap
+     */
     private void addField(final Field<?> field,
                           final ConcurrentHashMap<String, Field<?>> fieldMap)
     {
@@ -171,12 +253,16 @@ public class Scope
         }
     }
 
+    /**
+     * @return
+     */
     public String toString()
     {
         final StringBuilder builder;
 
         builder = new StringBuilder();
-        toString(this, builder);
+        toString(this,
+                 builder);
 
         // get rid of the trailing \n
         builder.setLength(builder.length() - 1);
@@ -184,64 +270,107 @@ public class Scope
         return builder.toString();
     }
 
-    private int toString(final Scope scope, final StringBuilder builder)
+    /**
+     * @param scope
+     * @param builder
+     * @return
+     */
+    private int toString(final Scope scope,
+                         final StringBuilder builder)
     {
         final Scope outer;
-        final int depth;
+        final int   depth;
 
         outer = scope.outer;
 
         if(outer == null)
         {
-            appendOpen(builder, 0);
-            appendFields(scope.fields.values(), builder, 0);
-            appendClose(builder, 0);
+            appendOpen(builder,
+                       0);
+            appendFields(scope.fields.values(),
+                         builder,
+                         0);
+            appendClose(builder,
+                        0);
 
             return 0;
         }
 
-        depth = toString(outer, builder) + 1;
-        appendOpen(builder, depth);
-        appendFields(scope.fields.values(), builder, depth);
-        appendClose(builder, depth);
+        depth = toString(outer,
+                         builder) + 1;
+        appendOpen(builder,
+                   depth);
+        appendFields(scope.fields.values(),
+                     builder,
+                     depth);
+        appendClose(builder,
+                    depth);
 
         return depth;
     }
 
+    /**
+     * @param fields
+     * @param builder
+     * @param depth
+     */
     private void appendFields(final Collection<Field<?>> fields,
                               final StringBuilder builder,
                               final int depth)
     {
         for(final Field<?> field : fields)
         {
-            appendField(field, builder, depth + 1);
+            appendField(field,
+                        builder,
+                        depth + 1);
         }
     }
 
+    /**
+     * @param field
+     * @param builder
+     * @param depth
+     */
     private void appendField(final Field<?> field,
                              final StringBuilder builder,
                              final int depth)
     {
-        appendSpaces(builder, depth);
+        appendSpaces(builder,
+                     depth);
         builder.append(field.getName());
         builder.append(" = ");
         builder.append(field.getValue());
         builder.append("\n");
     }
 
+    /**
+     * @param builder
+     * @param depth
+     */
     private void appendOpen(final StringBuilder builder,
                             final int depth)
     {
-        appendSpaces(builder, depth);
+        appendSpaces(builder,
+                     depth);
         builder.append("{\n");
     }
+
+    /**
+     * @param builder
+     * @param depth
+     */
     private void appendClose(final StringBuilder builder,
                              final int depth)
     {
-        appendSpaces(builder, depth);
+        appendSpaces(builder,
+                     depth);
         builder.append("}\n");
     }
 
+    /**
+     * @param builder
+     * @param depth
+     */
     private void appendSpaces(final StringBuilder builder,
                               final int depth)
     {

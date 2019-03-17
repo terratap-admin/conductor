@@ -5,9 +5,18 @@ import io.transmogrifier.FilterException;
 import io.transmogrifier.Transmogrifier;
 import io.transmogrifier.conductor.entries.Entry;
 
+/**
+ *
+ */
 public class PipelineFilter
         implements Filter<Pipeline, State, Void>
 {
+    /**
+     * @param pipeline
+     * @param state
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Void perform(final Pipeline pipeline,
                         final State state)

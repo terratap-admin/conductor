@@ -7,14 +7,39 @@ import io.transmogrifier.conductor.Field;
 import io.transmogrifier.conductor.State;
 import io.transmogrifier.conductor.Variable;
 
+/**
+ * @param <I>
+ * @param <E>
+ * @param <O>
+ */
 public class FilterEntry<I, E, O>
         extends Entry<I, E, O>
 {
+    /**
+     *
+     */
     private final Filter<I, E, O> filter;
-    private final Field<I>        inputField;
-    private final Field<E>        extraField;
-    private final Variable<O>     outputVar;
 
+    /**
+     *
+     */
+    private final Field<I> inputField;
+
+    /**
+     *
+     */
+    private final Field<E> extraField;
+
+    /**
+     *
+     */
+    private final Variable<O> outputVar;
+
+    /**
+     * @param stat
+     * @param f
+     * @param input
+     */
     public FilterEntry(final State stat,
                        final Filter<I, E, O> f,
                        final Field<I> input)
@@ -26,6 +51,12 @@ public class FilterEntry<I, E, O>
              null);
     }
 
+    /**
+     * @param stat
+     * @param f
+     * @param input
+     * @param extra
+     */
     public FilterEntry(final State stat,
                        final Filter<I, E, O> f,
                        final Field<I> input,
@@ -38,6 +69,12 @@ public class FilterEntry<I, E, O>
              null);
     }
 
+    /**
+     * @param stat
+     * @param f
+     * @param input
+     * @param output
+     */
     public FilterEntry(final State stat,
                        final Filter<I, E, O> f,
                        final Field<I> input,
@@ -50,6 +87,13 @@ public class FilterEntry<I, E, O>
              output);
     }
 
+    /**
+     * @param stat
+     * @param f
+     * @param input
+     * @param extra
+     * @param output
+     */
     public FilterEntry(final State stat,
                        final Filter<I, E, O> f,
                        final Field<I> input,
@@ -64,6 +108,10 @@ public class FilterEntry<I, E, O>
         outputVar = output;
     }
 
+    /**
+     * @param value
+     * @param var
+     */
     private void setOutputValue(final O value,
                                 final Variable<O> var)
     {
@@ -73,6 +121,12 @@ public class FilterEntry<I, E, O>
         }
     }
 
+    /**
+     * @param transmogrifier
+     * @param ignore
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Void perform(final Transmogrifier transmogrifier,
                         final Void ignore)
@@ -94,6 +148,9 @@ public class FilterEntry<I, E, O>
         return null;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString()
     {

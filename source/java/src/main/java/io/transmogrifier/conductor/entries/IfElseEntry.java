@@ -5,12 +5,29 @@ import io.transmogrifier.Transmogrifier;
 import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
 
+/**
+ * @param <I>
+ * @param <E>
+ * @param <O>
+ */
 public class IfElseEntry<I, E, O>
         extends ConditionalEntry<I, E, O>
 {
+    /**
+     *
+     */
     private final Pipeline ifPipeline;
+
+    /**
+     *
+     */
     private final Pipeline elsePipeline;
 
+    /**
+     * @param stat
+     * @param ifPipe
+     * @param cond
+     */
     public IfElseEntry(final State stat,
                        final Pipeline ifPipe,
                        final String cond)
@@ -21,6 +38,12 @@ public class IfElseEntry<I, E, O>
              cond);
     }
 
+    /**
+     * @param stat
+     * @param ifPipe
+     * @param elsePipe
+     * @param cond
+     */
     public IfElseEntry(final State stat,
                        final Pipeline ifPipe,
                        final Pipeline elsePipe,
@@ -33,6 +56,12 @@ public class IfElseEntry<I, E, O>
         elsePipeline = elsePipe;
     }
 
+    /**
+     * @param transmogrifier
+     * @param ignore
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Void perform(final Transmogrifier transmogrifier,
                         final Void ignore)
@@ -61,6 +90,9 @@ public class IfElseEntry<I, E, O>
         return null;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString()
     {

@@ -9,14 +9,39 @@ import io.transmogrifier.conductor.Variable;
 
 import java.util.List;
 
+/**
+ * @param <I>
+ * @param <E>
+ */
 public class ForEachEntry<I, E>
         extends Entry<I, E, Void>
 {
-    private final Pipeline       pipeline;
-    private final Field<List<I>> inputField;
-    private final Field<E>       extraField;
-    private final Variable<I>    itemField;
+    /**
+     *
+     */
+    private final Pipeline pipeline;
 
+    /**
+     *
+     */
+    private final Field<List<I>> inputField;
+
+    /**
+     *
+     */
+    private final Field<E> extraField;
+
+    /**
+     *
+     */
+    private final Variable<I> itemField;
+
+    /**
+     * @param stat
+     * @param pipe
+     * @param item
+     * @param input
+     */
     public ForEachEntry(final State stat,
                         final Pipeline pipe,
                         final Variable<I> item,
@@ -29,6 +54,13 @@ public class ForEachEntry<I, E>
              null);
     }
 
+    /**
+     * @param stat
+     * @param pipe
+     * @param item
+     * @param input
+     * @param extra
+     */
     public ForEachEntry(final State stat,
                         final Pipeline pipe,
                         final Variable<I> item,
@@ -43,6 +75,12 @@ public class ForEachEntry<I, E>
         itemField = item;
     }
 
+    /**
+     * @param transmogrifier
+     * @param ignore
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Void perform(final Transmogrifier transmogrifier,
                         final Void ignore)
@@ -62,6 +100,9 @@ public class ForEachEntry<I, E>
         return null;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString()
     {

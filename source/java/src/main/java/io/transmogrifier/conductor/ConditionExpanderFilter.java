@@ -6,9 +6,15 @@ import io.transmogrifier.FilterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ */
 public class ConditionExpanderFilter
         implements Filter<String, Scope, String>
 {
+    /**
+     *
+     */
     private static final Pattern FIELD_PATTERN;
 
     static
@@ -16,6 +22,12 @@ public class ConditionExpanderFilter
         FIELD_PATTERN = Pattern.compile("\\$\\(\\w*\\)");
     }
 
+    /**
+     * @param expression
+     * @param state
+     * @return
+     * @throws FilterException
+     */
     @Override
     public String perform(final String expression,
                           final Scope state)
@@ -57,6 +69,11 @@ public class ConditionExpanderFilter
         return currentValue;
     }
 
+
+    /**
+     * @param str
+     * @return
+     */
     private String extractValue(final String str)
     {
         final String value;

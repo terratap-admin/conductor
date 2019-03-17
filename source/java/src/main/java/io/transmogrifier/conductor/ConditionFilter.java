@@ -5,9 +5,16 @@ import io.transmogrifier.UnaryFilter;
 
 import java.math.BigDecimal;
 
+/**
+ *
+ */
 public class ConditionFilter
         implements UnaryFilter<String, Boolean>
 {
+    /**
+     * @param expressionString
+     * @return
+     */
     @Override
     public Boolean perform(final String expressionString)
     {

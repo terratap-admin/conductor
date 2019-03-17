@@ -5,11 +5,21 @@ import io.transmogrifier.Transmogrifier;
 import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
 
+/**
+ *
+ */
 public class PipelineEntry
         extends Entry<Pipeline, State, Void>
 {
+    /**
+     *
+     */
     private final Pipeline pipeline;
 
+    /**
+     * @param stat
+     * @param pipe
+     */
     public PipelineEntry(final State stat,
                          final Pipeline pipe)
     {
@@ -18,6 +28,12 @@ public class PipelineEntry
         pipeline = pipe;
     }
 
+    /**
+     * @param transmogrifier
+     * @param ignore
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Void perform(final Transmogrifier transmogrifier,
                         final Void ignore)
@@ -33,6 +49,9 @@ public class PipelineEntry
         return null;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString()
     {

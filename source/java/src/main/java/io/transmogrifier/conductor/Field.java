@@ -1,10 +1,24 @@
 package io.transmogrifier.conductor;
 
+/**
+ * @param <T>
+ */
 public class Field<T>
 {
+    /**
+     *
+     */
     protected final Value<T> value;
-    private final   String   name;
 
+    /**
+     *
+     */
+    private final String name;
+
+    /**
+     * @param nm
+     * @param initialValue
+     */
     Field(final String nm,
           final T initialValue)
     {
@@ -17,11 +31,17 @@ public class Field<T>
         value = new Value<>(initialValue);
     }
 
+    /**
+     * @return
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * @return
+     */
     public T getValue()
     {
         final T val;
@@ -31,6 +51,9 @@ public class Field<T>
         return val;
     }
 
+    /**
+     * @return
+     */
     public String toString()
     {
         return name + " = " + value;

@@ -5,9 +5,18 @@ import io.transmogrifier.Transmogrifier;
 import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
 
+/**
+ * @param <I>
+ * @param <E>
+ */
 public class WhileEntry<I, E>
         extends LoopingEntry<I, E>
 {
+    /**
+     * @param stat
+     * @param cond
+     * @param pipe
+     */
     public WhileEntry(final State stat,
                       final String cond,
                       final Pipeline pipe)
@@ -17,6 +26,12 @@ public class WhileEntry<I, E>
               cond);
     }
 
+    /**
+     * @param transmogrifier
+     * @param ignore
+     * @return
+     * @throws FilterException
+     */
     @Override
     public Void perform(final Transmogrifier transmogrifier,
                         final Void ignore)
@@ -31,6 +46,9 @@ public class WhileEntry<I, E>
         return null;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString()
     {

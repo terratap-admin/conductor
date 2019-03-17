@@ -8,16 +8,32 @@ import io.transmogrifier.conductor.Field;
 import io.transmogrifier.conductor.Pipeline;
 import io.transmogrifier.conductor.State;
 
+/**
+ * @param <I>
+ * @param <E>
+ * @param <O>
+ */
 public abstract class Entry<I, E, O>
         implements Filter<Transmogrifier, Void, Void>
 {
+    /**
+     *
+     */
     protected final State state;
 
+    /**
+     * @param stat
+     */
     protected Entry(final State stat)
     {
         state = stat;
     }
 
+    /**
+     * @param field
+     * @param <T>
+     * @return
+     */
     protected <T> T getValue(final Field<T> field)
     {
         final T value;
@@ -34,6 +50,10 @@ public abstract class Entry<I, E, O>
         return value;
     }
 
+    /**
+     * @param pipeline
+     * @throws FilterException
+     */
     protected void execute(final Pipeline pipeline)
             throws
             FilterException
@@ -47,5 +67,4 @@ public abstract class Entry<I, E, O>
                                  state,
                                  conductor);
     }
-
 }
